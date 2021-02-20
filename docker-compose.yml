@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    environment: 
+      MYSQL_DATABASE: my_database
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - ./app/data:/var/lib/mysql
+    ports: 
+      - 3306:3306
+  myapp:
+    tty: true
+    image: docker.io/bitnami/laravel:7-debian-10
+    environment:
+      - DB_HOST=mariadb
+      - DB_USERNAME=root
+      - DB_DATABASE=my_database
+      - DB_PASSWORD=example
+    depends_on:
+      - mariadb
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
+    # privileged: true # Privileged mode could be required to run this container under Windows
