@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('members', 'UserController@index');
-Route::get('members/{name}', 'UserController@show');
+// Route::get('members', 'UserController@index');
+// Route::get('members/{name}', 'UserController@show');
 
 Route::post('login', 'AuthController@login');
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('members', 'UserController@index');
+    Route::get('members/{name}', 'UserController@show');
+});
