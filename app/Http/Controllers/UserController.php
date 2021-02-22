@@ -16,6 +16,7 @@ class UserController extends Controller
     // Get specific member by name
     public function show($name) {
         return DB::table('users')
+            ->select('name', 'surname')
             ->where('name', $name)->get();
     }
 }
