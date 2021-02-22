@@ -14,3 +14,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('members', 'UserController@index');
+Route::get('members/{name}', 'UserController@show');
